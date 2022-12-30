@@ -1,0 +1,94 @@
+public abstract class Employee {
+   private String name;
+   private String address;
+   private int number;
+
+   public Employee(String name, String address, int number) {
+      System.out.println("Constructing an Employee");
+      this.name = name;
+      this.address = address;
+      this.number = number;
+   }
+   
+   public double computePay() {
+     System.out.println("Inside Employee computePay");
+     return 0.0;
+   }
+   
+   public void mailCheck() {
+      System.out.println("Mailing a check to " + this.name + " " + this.address);
+   }
+
+   public String toString() {
+      return name + " " + address + " " + number;
+   }
+
+   public String getName() {
+      return name;
+   }
+ 
+   public String getAddress() {
+      return address;
+   }
+   
+   public void setAddress(String newAddress) {
+      address = newAddress;
+   }
+ 
+   public int getNumber() {
+      return number;
+   }
+}
+You can observe that except abstract methods the Employee class is same as normal class in Java. The class is now abstract, but it still has three fields, seven methods, and one constructor.
+
+Now you can try to instantiate the Employee class in the following way −
+
+/* File name : AbstractDemo.java */
+public class AbstractDemo {
+
+   public static void main(String [] args) {
+      /* Following is not allowed and would raise error */
+      Employee e = new Employee("George W.", "Houston, TX", 43);
+      System.out.println("\n Call mailCheck using Employee reference--");
+      e.mailCheck();
+   }
+}
+When you compile the above class, it gives you the following error −
+
+Employee.java:46: Employee is abstract; cannot be instantiated
+      Employee e = new Employee("George W.", "Houston, TX", 43);
+                   ^
+1 error
+Inheriting the Abstract Class
+We can inherit the properties of Employee class just like concrete class in the following way −
+
+Example
+/* File name : Salary.java */
+public class Salary extends Employee {
+   private double salary;   // Annual salary
+   
+   public Salary(String name, String address, int number, double salary) {
+      super(name, address, number);
+      setSalary(salary);
+   }
+   
+   public void mailCheck() {
+      System.out.println("Within mailCheck of Salary class ");
+      System.out.println("Mailing check to " + getName() + " with salary " + salary);
+   }
+ 
+   public double getSalary() {
+      return salary;
+   }
+   
+   public void setSalary(double newSalary) {
+      if(newSalary >= 0.0) {
+         salary = newSalary;
+      }
+   }
+   
+   public double computePay() {
+      System.out.println("Computing salary pay for " + getName());
+      return salary/52;
+   }
+}
